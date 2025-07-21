@@ -1,0 +1,9 @@
+Stock Client -> python StockClient.py localhost:50051 < testa_estoque_client.txt
+Stock Client -> python StockClient.py localhost:50051 < popula_estoque.txt
+
+Stock Server -> python StockServer.py 50051 
+
+Order Server -> python OrderServer.py 50052 localhost:50051
+
+Order Client -> python OrderClient.py localhost:50051 localhost:50052
+Order Client -> python OrderClient.py localhost:50051 localhost:50052 < testa_pedido_client.txt
