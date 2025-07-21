@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package order;
+
+service OrderService {
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+    rpc CancelOrder(CancelOrderRequest) returns (CancelOrderResponse);
+    rpc End(Empty) returns (EndResponse);
+}
+
+message OrderItem {
+    int32 prod_id = 1;  // Identificador do produto
+    int32 quantity = 2; // Quantidade do produto
+}
+
+message OrderStatus {
+    int32 prod_id = 1;  // Identificador do produto
+    int32 status = 2;   // Status: 0 = sucesso, -1 = quantidade insuficiente, -2 = não encontrado
+}
+
+message CreateOrderRequest {
+    repeated OrderItem items = 1; // Lista de itens no pedido
+}
+
+message CreateOrderResponse {
+    repeated OrderStatus items_status = 1; // Status de cada item do pedido
+}
+
+message CancelOrderRequest {
+    int32 order_id = 1; // Identificador do pedido a ser cancelado
+}
+
+message CancelOrderResponse {
+    int32 status = 1; // Status: 0 = sucesso, -1 = pedido não encontrado
+}
+
+message EndResponse {
+    int32 total_products = 1; // Número total de produtos no estoque
+    int32 total_orders = 2;   // Número total de pedidos ativos
+}
+
+message Empty {}
